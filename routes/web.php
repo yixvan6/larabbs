@@ -20,3 +20,6 @@ Route::resource('users', 'UsersController', ['only' => ['show', 'edit', 'update'
 Route::resource('topics', 'TopicsController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 
 Route::get('categories/{category}', 'CategoriesController@show')->name('categories.show');
+
+// 话题图片上传
+Route::post('upload_image', 'TopicsController@uploadImage')->name('topics.upload_image');
