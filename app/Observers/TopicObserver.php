@@ -3,7 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Topic;
-use App\Handlers\SlugTranslateHandler;
+use App\Jobs\TranslateSlug;
 
 // creating, created, updating, updated, saving,
 // saved,  deleting, deleted, restoring, restored
@@ -16,15 +16,14 @@ class TopicObserver
         $topic->body = clean($topic->body, 'user_topic_body');
 
         $topic->excerpt = make_excerpt($topic->body);
-
-        // 翻译 slug
-        if (! $topic->slug) {
-            $topic->slug = app(SlugTranslateHandler::class)->translate($topic->title);
-        }
     }
 
-    public function updating(Topic $topic)
+    // 数据入库后，确保 $topic 的 id 始终有值
+    public function saved(Topic $topic)
     {
-        //
+        // 翻译 slug
+        if (! $topic->slug) {
+            dispatch(new TranslateSlug($topic));
+        }
     }
 }
