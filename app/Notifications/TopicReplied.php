@@ -58,7 +58,7 @@ class TopicReplied extends Notification
             'user_avatar' => $this->reply->user->avatar,
             'topic_link' => $link,
             'topic_id' => $topic->id,
-            'topic->title' => $topic->title,
+            'topic_title' => $topic->title,
         ];
     }
 }

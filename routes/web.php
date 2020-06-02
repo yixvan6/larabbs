@@ -26,3 +26,6 @@ Route::get('categories/{category}', 'CategoriesController@show')->name('categori
 Route::post('upload_image', 'TopicsController@uploadImage')->name('topics.upload_image');
 
 Route::resource('replies', 'RepliesController', ['only' => ['store', 'destroy']]);
+
+// 通知列表
+Route::get('notifications', 'NotificationsController@index')->name('notifications.index');
