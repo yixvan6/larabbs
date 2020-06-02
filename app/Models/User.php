@@ -9,7 +9,26 @@ use Illuminate\Auth\MustVerifyEmail;
 
 class User extends Authenticatable implements MustVerifyEmailContract
 {
-    use Notifiable, MustVerifyEmail;
+    use MustVerifyEmail;
+
+    use Notifiable {
+        notify as protected laravelNotify;
+    }
+
+    public function notify($instance)
+    {
+        // 如果要通知的人是当前用户，就不必通知了
+        if ($this->id == \Auth::id()) {
+            return;
+        }
+
+        // 只有数据库类型的通知才需要，发邮件等其他方式不用
+        if (method_exists($instance, 'toDatabase')) {
+            $this->increment('notification_count');
+        }
+
+        $this->laravelNotify($instance);
+    }
 
     /**
      * The attributes that are mass assignable.
