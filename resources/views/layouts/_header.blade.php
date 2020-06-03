@@ -48,7 +48,7 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             @can('manage_contents')
               <a class="dropdown-item" href="{{ url(config('administrator.uri')) }}">
-                <i class="fas fa-tachometer-alt mr-2"></i>管理后台
+                <i class="fas fa-tachometer-alt mr-3"></i>管理后台
               </a>
             @endcan
             <a class="dropdown-item" href="{{ route('users.show', Auth::id()) }}">
