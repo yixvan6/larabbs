@@ -29,5 +29,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::guessPolicyNamesUsing(function ($model) {
             return 'App\\Policies\\' . class_basename($model) . 'Policy';
         });
+
+        // 只有站长才能访问 horizon 后台
+        \Horizon::auth(function ($request) {
+            return \Auth::user() ? \Auth::user()->hasRole('founder') : false;
+        });
     }
 }
