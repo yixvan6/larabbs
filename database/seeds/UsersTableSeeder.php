@@ -31,10 +31,14 @@ class UsersTableSeeder extends Seeder
 
         User::insert($data);
 
-        // 单独处理1号用户
+        // 单独处理 1,2 号用户，并赋予角色
         $user = User::find(1);
         $user->name = 'yixvan6';
         $user->email = 'yixvan6@163.com';
         $user->save();
+        $user->assignRole('founder');
+
+        $user = User::find(2);
+        $user->assignRole('maintainer');
     }
 }
