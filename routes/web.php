@@ -29,3 +29,4 @@ Route::resource('replies', 'RepliesController', ['only' => ['store', 'destroy']]
 
 // 通知列表
 Route::get('notifications', 'NotificationsController@index')->name('notifications.index');
+Route::get('permission-denied', 'PagesController@permissionDenied')->name('permission-denied');
