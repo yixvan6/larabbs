@@ -27,6 +27,10 @@ class Kernel extends ConsoleKernel
         // 每小时执行一次 活跃用户 生成命令
         $schedule->command('larabbs:calculate-active-user')
                  ->hourly();
+
+        // 每天0点执行一次 同步用户活跃时间到数据库 的命令
+        $schedule->command('larabbs:sync-user-actived-time')
+                ->dailyAt('00:00');
     }
 
     /**
